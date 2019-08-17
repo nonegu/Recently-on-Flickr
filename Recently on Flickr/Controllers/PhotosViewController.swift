@@ -10,7 +10,7 @@ import UIKit
 
 class PhotosViewController: UIViewController {
     
-    let itemPerPage = 5
+    let itemPerPage = 10
     var isLoading = false
     var currentPage = 1
     
@@ -22,14 +22,6 @@ class PhotosViewController: UIViewController {
         let loadingNib = UINib(nibName: "LoadingCell", bundle: nil)
         collectionView.register(loadingNib, forCellWithReuseIdentifier: "loadingCell")
         FlickrClient.getRecentPhotosURL(itemPerPage: itemPerPage, page: currentPage, completion: handleRecentPhotosResponse(success:error:))
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        if let flowLayout = self.collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            flowLayout.itemSize = CGSize(width: self.collectionView.bounds.width, height: 120)
-        }
     }
     
     func handleRecentPhotosResponse(success: Bool, error: Error?) {
@@ -113,3 +105,13 @@ extension PhotosViewController: UICollectionViewDelegate {
     
 }
 
+extension PhotosViewController: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let padding: CGFloat = 10
+        let collectionViewSize = collectionView.frame.size.width - padding
+        
+        return CGSize(width: collectionViewSize/2, height: collectionViewSize/2)
+    }
+    
+}
