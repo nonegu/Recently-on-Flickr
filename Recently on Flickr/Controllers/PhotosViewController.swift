@@ -10,13 +10,17 @@ import UIKit
 
 class PhotosViewController: UIViewController {
     
+    let itemPerPage = 5
+    var isLoading = false
+    var currentPage = 1
+    
     @IBOutlet weak var collectionView: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        FlickrClient.getRecentPhotosURL(itemPerPage: 20, page: 1, completion: handleRecentPhotosResponse(success:error:))
+        FlickrClient.getRecentPhotosURL(itemPerPage: itemPerPage, page: currentPage, completion: handleRecentPhotosResponse(success:error:))
     }
     
     override func viewDidLayoutSubviews() {
@@ -29,6 +33,7 @@ class PhotosViewController: UIViewController {
     
     func handleRecentPhotosResponse(success: Bool, error: Error?) {
         if success {
+            isLoading = false
             collectionView.reloadData()
         } else {
             print(error!)
@@ -51,6 +56,7 @@ extension PhotosViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! CustomCollectionViewCell
         
+        cell.imageView.image = nil
         FlickrClient.getPhotoData(from: Photos.URLs[indexPath.item]) { (data, error) in
             if let data = data, let image = UIImage(data: data) {
                 cell.imageView.image = image
@@ -68,5 +74,27 @@ extension PhotosViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print(indexPath.item)
     }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        
+        if offsetY > contentHeight - scrollView.frame.height {
+            if !isLoading {
+                downloadMorePhotos()
+            }
+        }
+    }
+    
+    func downloadMorePhotos() {
+        isLoading = true
+        currentPage += 1
+        print("downloading new photos")
+        
+        DispatchQueue.main.async {
+            FlickrClient.getRecentPhotosURL(itemPerPage: self.itemPerPage, page: self.currentPage, completion: self.handleRecentPhotosResponse(success:error:))
+        }
+    }
+    
 }
 
