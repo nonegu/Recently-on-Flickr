@@ -13,6 +13,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        print(FlickrClient.Endpoints.getRecentPhotos(itemPerPage: 20, page: 1).url)
     }
 
 
