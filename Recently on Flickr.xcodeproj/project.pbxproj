@@ -15,6 +15,7 @@
 		B6CFA2922307D0E7001BE9AC /* FlickrClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CFA2912307D0E7001BE9AC /* FlickrClient.swift */; };
 		B6CFA2982307DA2E001BE9AC /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CFA2972307DA2E001BE9AC /* Photo.swift */; };
 		B6CFA29A2307DDD6001BE9AC /* PhotosResponses.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CFA2992307DDD6001BE9AC /* PhotosResponses.swift */; };
+		B6CFA29D2307E7B1001BE9AC /* Photos.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CFA29C2307E7B1001BE9AC /* Photos.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		B6CFA2912307D0E7001BE9AC /* FlickrClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrClient.swift; sourceTree = "<group>"; };
 		B6CFA2972307DA2E001BE9AC /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		B6CFA2992307DDD6001BE9AC /* PhotosResponses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosResponses.swift; sourceTree = "<group>"; };
+		B6CFA29C2307E7B1001BE9AC /* Photos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photos.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +76,7 @@
 		B6CFA2902307D0C8001BE9AC /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				B6CFA29B2307E79D001BE9AC /* Data */,
 				B6CFA2932307D83F001BE9AC /* FlickrClient */,
 				B6CFA2942307D890001BE9AC /* Flickr Responses */,
 			);
@@ -96,6 +99,14 @@
 				B6CFA2992307DDD6001BE9AC /* PhotosResponses.swift */,
 			);
 			path = "Flickr Responses";
+			sourceTree = "<group>";
+		};
+		B6CFA29B2307E79D001BE9AC /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				B6CFA29C2307E7B1001BE9AC /* Photos.swift */,
+			);
+			path = Data;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -169,6 +180,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B6CFA29D2307E7B1001BE9AC /* Photos.swift in Sources */,
 				B6CFA2812307D096001BE9AC /* ViewController.swift in Sources */,
 				B6CFA29A2307DDD6001BE9AC /* PhotosResponses.swift in Sources */,
 				B6CFA27F2307D096001BE9AC /* AppDelegate.swift in Sources */,

@@ -31,22 +31,52 @@ class FlickrClient {
         }
     }
     
-    class func getRecentPhotos(itemPerPage: Int, page: Int, completion: @escaping () -> Void) {
+    class func getRecentPhotosURL(itemPerPage: Int, page: Int, completion: @escaping (Bool, Error?) -> Void) {
         let getRecentPhotosURL = Endpoints.getRecentPhotos(itemPerPage: itemPerPage, page: page).url
         let task = URLSession.shared.dataTask(with: getRecentPhotosURL) { (data, response, error) in
             guard let data = data else {
+                DispatchQueue.main.async {
+                    completion(false, error)
+                }
                 return
             }
             
             let decoder = JSONDecoder()
             do {
                 let response = try decoder.decode(PhotosResponses.self, from: data)
-                print(response)
+                DispatchQueue.main.async {
+                    createPhotoURLsFrom(response: response)
+                    completion(true, nil)
+                }
             } catch {
-                print(error)
+                DispatchQueue.main.async {
+                    completion(false, error)
+                }
             }
         }
         task.resume()
+    }
+    
+    class func getPhotoData(from URL: URL, completion: @escaping (Data?, Error?) -> Void) {
+        let task = URLSession.shared.dataTask(with: URL) { (data, response, error) in
+            guard let data = data else {
+                DispatchQueue.main.async {
+                    completion(nil, error)
+                }
+                return
+            }
+            DispatchQueue.main.async {
+                completion(data, nil)
+            }
+        }
+        task.resume()
+    }
+    
+    class func createPhotoURLsFrom(response: PhotosResponses) {
+        for photo in response.photos.photo {
+            let photoURL = URL(string: "https://farm\(photo.farm).staticflickr.com/\(photo.server)/\(photo.id)_\(photo.secret).jpg")!
+            Photos.URLs.append(photoURL)
+        }
     }
     
 }
