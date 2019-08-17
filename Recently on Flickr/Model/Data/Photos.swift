@@ -12,6 +12,5 @@ import UIKit
 class Photos {
     
     static var URLs = [URL]()
-    static var images = [UIImage]()
     
 }

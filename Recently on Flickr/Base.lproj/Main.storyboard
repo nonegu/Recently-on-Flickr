@@ -69,11 +69,41 @@
                     <navigationItem key="navigationItem" title="Recently on Flickr" id="X0C-i7-45U"/>
                     <connections>
                         <outlet property="collectionView" destination="E0c-kX-ZdQ" id="ALh-EK-0ge"/>
+                        <segue destination="4ny-Ua-Xep" kind="show" identifier="photoDetailView" id="MgQ-EF-ybZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1071.2" y="69.715142428785612"/>
+        </scene>
+        <!--Photo Detail View Controller-->
+        <scene sceneID="ocu-xH-uTj">
+            <objects>
+                <viewController storyboardIdentifier="photoDetailView" id="4ny-Ua-Xep" customClass="PhotoDetailViewController" customModule="Recently_on_Flickr" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="UlV-Au-Qu2">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jc1-HY-L20">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="jc1-HY-L20" firstAttribute="top" secondItem="XJY-bb-v1L" secondAttribute="top" id="839-uR-zsT"/>
+                            <constraint firstItem="jc1-HY-L20" firstAttribute="leading" secondItem="XJY-bb-v1L" secondAttribute="leading" id="txD-Xz-zgJ"/>
+                            <constraint firstItem="jc1-HY-L20" firstAttribute="bottom" secondItem="XJY-bb-v1L" secondAttribute="bottom" id="x7u-xz-WPG"/>
+                            <constraint firstItem="jc1-HY-L20" firstAttribute="trailing" secondItem="XJY-bb-v1L" secondAttribute="trailing" id="zGF-kw-m54"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="XJY-bb-v1L"/>
+                    </view>
+                    <connections>
+                        <outlet property="detailImageView" destination="jc1-HY-L20" id="loh-59-mWz"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1MF-lp-pNa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1936.8" y="63.418290854572717"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="SeE-1M-z7f">

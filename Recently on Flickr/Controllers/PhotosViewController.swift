@@ -72,7 +72,9 @@ extension PhotosViewController: UICollectionViewDataSource {
 extension PhotosViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(indexPath.item)
+        let photoDetailVC = storyboard?.instantiateViewController(withIdentifier: "photoDetailView") as! PhotoDetailViewController
+        photoDetailVC.imageUrlToShow = Photos.URLs[indexPath.row]
+        navigationController?.pushViewController(photoDetailVC, animated: true)
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

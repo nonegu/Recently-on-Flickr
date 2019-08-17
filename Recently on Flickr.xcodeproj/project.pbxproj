@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B666228D23081CDA006E0B85 /* PhotoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B666228C23081CDA006E0B85 /* PhotoDetailViewController.swift */; };
 		B6CFA27F2307D096001BE9AC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CFA27E2307D096001BE9AC /* AppDelegate.swift */; };
 		B6CFA2812307D096001BE9AC /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CFA2802307D096001BE9AC /* PhotosViewController.swift */; };
 		B6CFA2842307D096001BE9AC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6CFA2822307D096001BE9AC /* Main.storyboard */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B666228C23081CDA006E0B85 /* PhotoDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailViewController.swift; sourceTree = "<group>"; };
 		B6CFA27B2307D096001BE9AC /* Recently on Flickr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Recently on Flickr.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6CFA27E2307D096001BE9AC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B6CFA2802307D096001BE9AC /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				B6CFA2802307D096001BE9AC /* PhotosViewController.swift */,
+				B666228C23081CDA006E0B85 /* PhotoDetailViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -205,6 +208,7 @@
 				B6CFA29A2307DDD6001BE9AC /* PhotosResponses.swift in Sources */,
 				B6CFA27F2307D096001BE9AC /* AppDelegate.swift in Sources */,
 				B6CFA2922307D0E7001BE9AC /* FlickrClient.swift in Sources */,
+				B666228D23081CDA006E0B85 /* PhotoDetailViewController.swift in Sources */,
 				B6CFA2982307DA2E001BE9AC /* Photo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
