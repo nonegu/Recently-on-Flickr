@@ -19,7 +19,8 @@ class PhotosViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
+        let loadingNib = UINib(nibName: "LoadingCell", bundle: nil)
+        collectionView.register(loadingNib, forCellWithReuseIdentifier: "loadingCell")
         FlickrClient.getRecentPhotosURL(itemPerPage: itemPerPage, page: currentPage, completion: handleRecentPhotosResponse(success:error:))
     }
     
@@ -46,24 +47,35 @@ class PhotosViewController: UIViewController {
 extension PhotosViewController: UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
+        return 2
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return Photos.URLs.count
+        if section == 0 {
+            return Photos.URLs.count
+        } else if section == 1 && isLoading {
+            return 1
+        }
+        return 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! CustomCollectionViewCell
-        
-        cell.imageView.image = nil
-        FlickrClient.getPhotoData(from: Photos.URLs[indexPath.item]) { (data, error) in
-            if let data = data, let image = UIImage(data: data) {
-                cell.imageView.image = image
+        if indexPath.section == 0 {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! CustomCollectionViewCell
+            
+            cell.imageView.image = nil
+            FlickrClient.getPhotoData(from: Photos.URLs[indexPath.item]) { (data, error) in
+                if let data = data, let image = UIImage(data: data) {
+                    cell.imageView.image = image
+                }
             }
+            return cell
+        } else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "loadingCell", for: indexPath) as! LoadingCell
+            cell.spinner.startAnimating()
+            return cell
         }
         
-        return cell
     }
     
 }
@@ -92,6 +104,7 @@ extension PhotosViewController: UICollectionViewDelegate {
         isLoading = true
         currentPage += 1
         print("downloading new photos")
+        collectionView.reloadSections(IndexSet(integer: 1))
         
         DispatchQueue.main.async {
             FlickrClient.getRecentPhotosURL(itemPerPage: self.itemPerPage, page: self.currentPage, completion: self.handleRecentPhotosResponse(success:error:))
