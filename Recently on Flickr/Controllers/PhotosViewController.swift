@@ -108,10 +108,14 @@ extension PhotosViewController: UICollectionViewDelegate {
 extension PhotosViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let padding: CGFloat = 10
-        let collectionViewSize = collectionView.frame.size.width - padding
-        
-        return CGSize(width: collectionViewSize/2, height: collectionViewSize/2)
+        if indexPath.section == 0 {
+            let padding: CGFloat = 10
+            let collectionViewSize = collectionView.frame.size.width - padding
+            
+            return CGSize(width: collectionViewSize/2, height: collectionViewSize/2)
+        } else {
+            return CGSize(width: collectionView.frame.size.width, height: 50)
+        }
     }
     
 }
