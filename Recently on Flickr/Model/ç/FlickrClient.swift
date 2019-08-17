@@ -10,12 +10,12 @@ import Foundation
 
 class FlickrClient {
     
-    static let apiKey = "ENTER YOUR API KEY HERE"
+    static let apiKey = "ENTER_YOUR_API_KEY_HERE"
     
     enum Endpoints {
         static let base = "https://api.flickr.com/services/rest/"
         static let apiKeyParam = "&api_key=\(FlickrClient.apiKey)"
-        static let jsonFormatParam = "&format=json"
+        static let jsonFormatParam = "&format=json&nojsoncallback=1"
         
         case getRecentPhotos(itemPerPage: Int, page: Int)
         
@@ -29,7 +29,24 @@ class FlickrClient {
         var url: URL {
             return URL(string: stringValue)!
         }
-        
+    }
+    
+    class func getRecentPhotos(itemPerPage: Int, page: Int, completion: @escaping () -> Void) {
+        let getRecentPhotosURL = Endpoints.getRecentPhotos(itemPerPage: itemPerPage, page: page).url
+        let task = URLSession.shared.dataTask(with: getRecentPhotosURL) { (data, response, error) in
+            guard let data = data else {
+                return
+            }
+            
+            let decoder = JSONDecoder()
+            do {
+                let response = try decoder.decode(PhotosResponses.self, from: data)
+                print(response)
+            } catch {
+                print(error)
+            }
+        }
+        task.resume()
     }
     
 }
