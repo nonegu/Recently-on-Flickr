@@ -17,6 +17,7 @@ class PhotoDetailViewController: UIViewController {
     // MARK: Outlets
     @IBOutlet weak var detailImageView: UIImageView!
     
+    // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -41,6 +42,7 @@ class PhotoDetailViewController: UIViewController {
         }
     }
     
+    // MARK: Changing the URL to display image with better quality.
     func getOriginalImageUrl(url: URL) -> URL {
         let imageUrlString = imageUrlToShow.absoluteString
         let startIndex = imageUrlString.index(imageUrlString.endIndex, offsetBy: -6)

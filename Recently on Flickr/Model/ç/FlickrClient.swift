@@ -31,6 +31,7 @@ class FlickrClient {
         }
     }
     
+    // MARK: GET Requests
     class func getRecentPhotosURL(itemPerPage: Int, page: Int, completion: @escaping (Bool, Error?) -> Void) {
         let getRecentPhotosURL = Endpoints.getRecentPhotos(itemPerPage: itemPerPage, page: page).url
         let task = URLSession.shared.dataTask(with: getRecentPhotosURL) { (data, response, error) in

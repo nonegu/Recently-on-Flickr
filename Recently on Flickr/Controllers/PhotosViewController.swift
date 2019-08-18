@@ -94,6 +94,7 @@ extension PhotosViewController: UICollectionViewDelegate {
         navigationController?.pushViewController(photoDetailVC, animated: true)
     }
     
+    // MARK: Calculate the end of the scrollView, and call downloadMorePhotos when the last cell displayed
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offsetY = scrollView.contentOffset.y
         let contentHeight = scrollView.contentSize.height
@@ -117,6 +118,7 @@ extension PhotosViewController: UICollectionViewDelegate {
     
 }
 
+// MARK: Flow Layout Methods
 extension PhotosViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
