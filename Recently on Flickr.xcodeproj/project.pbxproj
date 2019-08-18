@@ -20,6 +20,7 @@
 		B6CFA29A2307DDD6001BE9AC /* PhotosResponses.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CFA2992307DDD6001BE9AC /* PhotosResponses.swift */; };
 		B6CFA29D2307E7B1001BE9AC /* Photos.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CFA29C2307E7B1001BE9AC /* Photos.swift */; };
 		B6CFA2A42307FFFA001BE9AC /* CustomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CFA2A32307FFFA001BE9AC /* CustomCollectionViewCell.swift */; };
+		B6FF402D230941FF009206F4 /* UIViewController+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FF402C230941FF009206F4 /* UIViewController+Helpers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		B6CFA2992307DDD6001BE9AC /* PhotosResponses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosResponses.swift; sourceTree = "<group>"; };
 		B6CFA29C2307E7B1001BE9AC /* Photos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photos.swift; sourceTree = "<group>"; };
 		B6CFA2A32307FFFA001BE9AC /* CustomCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCollectionViewCell.swift; sourceTree = "<group>"; };
+		B6FF402C230941FF009206F4 /* UIViewController+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Helpers.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +125,7 @@
 			children = (
 				B6CFA2802307D096001BE9AC /* PhotosViewController.swift */,
 				B666228C23081CDA006E0B85 /* PhotoDetailViewController.swift */,
+				B6FF402C230941FF009206F4 /* UIViewController+Helpers.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -217,6 +220,7 @@
 				B6CFA2922307D0E7001BE9AC /* FlickrClient.swift in Sources */,
 				B6662290230823C5006E0B85 /* LoadingCell.swift in Sources */,
 				B666228D23081CDA006E0B85 /* PhotoDetailViewController.swift in Sources */,
+				B6FF402D230941FF009206F4 /* UIViewController+Helpers.swift in Sources */,
 				B6CFA2982307DA2E001BE9AC /* Photo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

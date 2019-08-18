@@ -13,13 +13,7 @@ class PhotosViewController: UIViewController {
     let itemPerPage = 20
     var isLoading = false
     var currentPage = 1
-    lazy var activityIndicator: UIActivityIndicatorView = {
-        let indicator = UIActivityIndicatorView(style: .whiteLarge)
-        indicator.hidesWhenStopped = true
-        indicator.center = view.center
-        indicator.color = UIColor.black
-        return indicator
-    }()
+    lazy var activityIndicator = createActivityIndicatorView()
     
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -42,7 +36,9 @@ class PhotosViewController: UIViewController {
             UIApplication.shared.endIgnoringInteractionEvents()
             collectionView.reloadData()
         } else {
-            print(error!)
+            activityIndicator.stopAnimating()
+            UIApplication.shared.endIgnoringInteractionEvents()
+            presentError(title: "Loading Images Failed", message: "Check your connection and re-open the app")
         }
     }
 
@@ -110,9 +106,8 @@ extension PhotosViewController: UICollectionViewDelegate {
         print("downloading new photos")
         collectionView.reloadSections(IndexSet(integer: 1))
         
-        DispatchQueue.main.async {
-            FlickrClient.getRecentPhotosURL(itemPerPage: self.itemPerPage, page: self.currentPage, completion: self.handleRecentPhotosResponse(success:error:))
-        }
+        FlickrClient.getRecentPhotosURL(itemPerPage: self.itemPerPage, page: self.currentPage, completion: self.handleRecentPhotosResponse(success:error:))
+
     }
     
 }

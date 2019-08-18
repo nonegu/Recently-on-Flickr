@@ -12,13 +12,7 @@ class PhotoDetailViewController: UIViewController {
 
     // MARK: Variables
     var imageUrlToShow: URL!
-    lazy var activityIndicator: UIActivityIndicatorView = {
-        let indicator = UIActivityIndicatorView(style: .whiteLarge)
-        indicator.hidesWhenStopped = true
-        indicator.center = view.center
-        indicator.color = UIColor.black
-        return indicator
-    }()
+    lazy var activityIndicator = createActivityIndicatorView()
     
     // MARK: Outlets
     @IBOutlet weak var detailImageView: UIImageView!
@@ -41,6 +35,8 @@ class PhotoDetailViewController: UIViewController {
                     UIApplication.shared.endIgnoringInteractionEvents()
                     self.detailImageView.image = image
                 }
+            } else {
+                self.presentError(title: "Loading Original Image Failed", message: "Please check your connection")
             }
         }
     }
