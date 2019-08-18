@@ -67,7 +67,6 @@ extension PhotosViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if indexPath.section == 0 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! CustomCollectionViewCell
-            cell.imageView.image = nil
             
             if let imageFromCache = Photos.imageCache.object(forKey: Photos.URLs[indexPath.item].absoluteString as NSString) as? UIImage {
                 cell.imageView.image = imageFromCache
