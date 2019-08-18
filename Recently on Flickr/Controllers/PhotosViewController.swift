@@ -43,7 +43,7 @@ class PhotosViewController: UIViewController {
         } else {
             activityIndicator.stopAnimating()
             UIApplication.shared.endIgnoringInteractionEvents()
-            presentError(title: "Loading Images Failed", message: "Check your connection and re-open the app")
+            presentError(title: "Loading Images Failed", message: error?.localizedDescription ?? "Unknown Error")
         }
     }
 

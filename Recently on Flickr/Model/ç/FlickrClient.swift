@@ -49,8 +49,16 @@ class FlickrClient {
                     completion(true, nil)
                 }
             } catch {
-                DispatchQueue.main.async {
-                    completion(false, error)
+                do {
+                    let errorResponse = try decoder.decode(ErrorResponses.self, from: data)
+                    DispatchQueue.main.async {
+                        completion(false, errorResponse)
+                    }
+                } catch {
+                    DispatchQueue.main.async {
+                        print(String(data: data, encoding: .utf8)!)
+                        completion(false, error)
+                    }
                 }
             }
         }

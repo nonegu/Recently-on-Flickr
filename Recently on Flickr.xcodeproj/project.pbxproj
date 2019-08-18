@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B60D77A52309F50A0039239B /* ErrorResponses.swift in Sources */ = {isa = PBXBuildFile; fileRef = B60D77A42309F50A0039239B /* ErrorResponses.swift */; };
 		B666228D23081CDA006E0B85 /* PhotoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B666228C23081CDA006E0B85 /* PhotoDetailViewController.swift */; };
 		B6662290230823C5006E0B85 /* LoadingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B666228E230823C5006E0B85 /* LoadingCell.swift */; };
 		B6662291230823C5006E0B85 /* LoadingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B666228F230823C5006E0B85 /* LoadingCell.xib */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B60D77A42309F50A0039239B /* ErrorResponses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorResponses.swift; sourceTree = "<group>"; };
 		B666228C23081CDA006E0B85 /* PhotoDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailViewController.swift; sourceTree = "<group>"; };
 		B666228E230823C5006E0B85 /* LoadingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCell.swift; sourceTree = "<group>"; };
 		B666228F230823C5006E0B85 /* LoadingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadingCell.xib; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 			children = (
 				B6CFA2972307DA2E001BE9AC /* Photo.swift */,
 				B6CFA2992307DDD6001BE9AC /* PhotosResponses.swift */,
+				B60D77A42309F50A0039239B /* ErrorResponses.swift */,
 			);
 			path = "Flickr Responses";
 			sourceTree = "<group>";
@@ -216,6 +219,7 @@
 				B6CFA2A42307FFFA001BE9AC /* CustomCollectionViewCell.swift in Sources */,
 				B6CFA2812307D096001BE9AC /* PhotosViewController.swift in Sources */,
 				B6CFA29A2307DDD6001BE9AC /* PhotosResponses.swift in Sources */,
+				B60D77A52309F50A0039239B /* ErrorResponses.swift in Sources */,
 				B6CFA27F2307D096001BE9AC /* AppDelegate.swift in Sources */,
 				B6CFA2922307D0E7001BE9AC /* FlickrClient.swift in Sources */,
 				B6662290230823C5006E0B85 /* LoadingCell.swift in Sources */,
