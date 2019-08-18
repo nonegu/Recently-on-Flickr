@@ -59,7 +59,7 @@ extension PhotosViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if section == 0 {
             return Photos.allPhotos.count
-        } else if section == 1 && isLoading {
+        } else if section == 1 && isLoading && !activityIndicator.isAnimating {
             return 1
         }
         return 0
