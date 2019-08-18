@@ -10,7 +10,7 @@ import UIKit
 
 class PhotosViewController: UIViewController {
     
-    let itemPerPage = 10
+    let itemPerPage = 20
     var isLoading = false
     var currentPage = 1
     
@@ -54,12 +54,12 @@ extension PhotosViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if indexPath.section == 0 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! CustomCollectionViewCell
-            
             cell.imageView.image = nil
-            FlickrClient.getPhotoData(from: Photos.URLs[indexPath.item]) { (data, error) in
-                if let data = data, let image = UIImage(data: data) {
-                    cell.imageView.image = image
-                }
+            
+            if let imageFromCache = Photos.imageCache.object(forKey: Photos.URLs[indexPath.item].absoluteString as NSString) as? UIImage {
+                cell.imageView.image = imageFromCache
+            } else {
+                cell.imageView.loadImageUsingURL(url: Photos.URLs[indexPath.item])
             }
             return cell
         } else {
@@ -118,4 +118,18 @@ extension PhotosViewController: UICollectionViewDelegateFlowLayout {
         }
     }
     
+}
+
+extension UIImageView {
+    
+    func loadImageUsingURL(url: URL) {
+        FlickrClient.getPhotoData(from: url) { (data, error) in
+            if let data = data, let image = UIImage(data: data) {
+                Photos.imageCache.setObject(image, forKey: (url.absoluteString as NSString))
+                DispatchQueue.main.async {
+                    self.image = image
+                }
+            }
+        }
+    }
 }
