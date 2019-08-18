@@ -58,7 +58,7 @@ extension PhotosViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if section == 0 {
-            return Photos.URLs.count
+            return Photos.allPhotos.count
         } else if section == 1 && isLoading {
             return 1
         }
@@ -69,10 +69,10 @@ extension PhotosViewController: UICollectionViewDataSource {
         if indexPath.section == 0 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! CustomCollectionViewCell
             
-            if let imageFromCache = Photos.imageCache.object(forKey: Photos.URLs[indexPath.item].absoluteString as NSString) as? UIImage {
+            if let imageFromCache = Photos.imageCache.object(forKey: Photos.allPhotos[indexPath.item].url.absoluteString as NSString) as? UIImage {
                 cell.imageView.image = imageFromCache
             } else {
-                cell.imageView.loadImageUsingURL(url: Photos.URLs[indexPath.item])
+                cell.imageView.loadImageUsingURL(url: Photos.allPhotos[indexPath.item].url)
             }
             return cell
         } else {
@@ -90,7 +90,7 @@ extension PhotosViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let photoDetailVC = storyboard?.instantiateViewController(withIdentifier: "photoDetailView") as! PhotoDetailViewController
-        photoDetailVC.imageUrlToShow = Photos.URLs[indexPath.row]
+        photoDetailVC.imageUrlToShow = Photos.allPhotos[indexPath.item].url
         navigationController?.pushViewController(photoDetailVC, animated: true)
     }
     

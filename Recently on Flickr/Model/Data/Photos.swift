@@ -11,7 +11,7 @@ import UIKit
 
 class Photos {
     
-    static var URLs = [URL]()
+    static var allPhotos = [PhotoModel]()
     static var imageCache = NSCache<AnyObject, AnyObject>()
 
 }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Photo: Codable {
+struct FlickrPhoto: Codable {
     let id: String
     let owner: String
     let secret: String
