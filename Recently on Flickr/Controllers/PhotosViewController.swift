@@ -29,6 +29,11 @@ class PhotosViewController: UIViewController {
         FlickrClient.getRecentPhotosURL(itemPerPage: itemPerPage, page: currentPage, completion: handleRecentPhotosResponse(success:error:))
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        collectionView.collectionViewLayout.invalidateLayout()
+    }
+    
     func handleRecentPhotosResponse(success: Bool, error: Error?) {
         if success {
             isLoading = false
