@@ -13,6 +13,13 @@ class PhotosViewController: UIViewController {
     let itemPerPage = 20
     var isLoading = false
     var currentPage = 1
+    lazy var activityIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .whiteLarge)
+        indicator.hidesWhenStopped = true
+        indicator.center = view.center
+        indicator.color = UIColor.black
+        return indicator
+    }()
     
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -21,12 +28,18 @@ class PhotosViewController: UIViewController {
         // Do any additional setup after loading the view.
         let loadingNib = UINib(nibName: "LoadingCell", bundle: nil)
         collectionView.register(loadingNib, forCellWithReuseIdentifier: "loadingCell")
+
+        activityIndicator.startAnimating()
+        view.addSubview(activityIndicator)
+        UIApplication.shared.beginIgnoringInteractionEvents()
         FlickrClient.getRecentPhotosURL(itemPerPage: itemPerPage, page: currentPage, completion: handleRecentPhotosResponse(success:error:))
     }
     
     func handleRecentPhotosResponse(success: Bool, error: Error?) {
         if success {
             isLoading = false
+            activityIndicator.stopAnimating()
+            UIApplication.shared.endIgnoringInteractionEvents()
             collectionView.reloadData()
         } else {
             print(error!)

@@ -12,6 +12,13 @@ class PhotoDetailViewController: UIViewController {
 
     // MARK: Variables
     var imageUrlToShow: URL!
+    lazy var activityIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .whiteLarge)
+        indicator.hidesWhenStopped = true
+        indicator.center = view.center
+        indicator.color = UIColor.black
+        return indicator
+    }()
     
     // MARK: Outlets
     @IBOutlet weak var detailImageView: UIImageView!
@@ -20,6 +27,9 @@ class PhotoDetailViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        activityIndicator.startAnimating()
+        view.addSubview(activityIndicator)
+        UIApplication.shared.beginIgnoringInteractionEvents()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -27,6 +37,8 @@ class PhotoDetailViewController: UIViewController {
         FlickrClient.getPhotoData(from: getOriginalImageUrl(url: imageUrlToShow)) { (data, error) in
             if let data = data, let image = UIImage(data: data) {
                 DispatchQueue.main.async {
+                    self.activityIndicator.stopAnimating()
+                    UIApplication.shared.endIgnoringInteractionEvents()
                     self.detailImageView.image = image
                 }
             }
