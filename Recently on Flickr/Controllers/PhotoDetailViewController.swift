@@ -23,13 +23,25 @@ class PhotoDetailViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        FlickrClient.getPhotoData(from: imageUrlToShow) { (data, error) in
+        
+        FlickrClient.getPhotoData(from: getOriginalImageUrl(url: imageUrlToShow)) { (data, error) in
             if let data = data, let image = UIImage(data: data) {
                 DispatchQueue.main.async {
                     self.detailImageView.image = image
                 }
             }
         }
+    }
+    
+    func getOriginalImageUrl(url: URL) -> URL {
+        let imageUrlString = imageUrlToShow.absoluteString
+        let startIndex = imageUrlString.index(imageUrlString.endIndex, offsetBy: -6)
+        let endIndex = imageUrlString.endIndex
+        
+        let originalImageUrlString = imageUrlString.replacingCharacters(in: startIndex..<endIndex, with: ".jpg")
+        let originalImageUrl = URL(string: originalImageUrlString)!
+        
+        return originalImageUrl
     }
 
 }

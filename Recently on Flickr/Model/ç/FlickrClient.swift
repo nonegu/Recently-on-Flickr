@@ -72,9 +72,9 @@ class FlickrClient {
         task.resume()
     }
     
-    class func createPhotoURLsFrom(response: PhotosResponses) {
+    class func createPhotoURLsFrom(response: PhotosResponses, size: String = "q") {
         for photo in response.photos.photo {
-            let photoURL = URL(string: "https://farm\(photo.farm).staticflickr.com/\(photo.server)/\(photo.id)_\(photo.secret).jpg")!
+            let photoURL = URL(string: "https://farm\(photo.farm).staticflickr.com/\(photo.server)/\(photo.id)_\(photo.secret)_\(size).jpg")!
             Photos.URLs.append(photoURL)
         }
     }
