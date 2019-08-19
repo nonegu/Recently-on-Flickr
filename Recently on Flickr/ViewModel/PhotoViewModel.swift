@@ -77,4 +77,16 @@ class PhotoViewModel {
         task.resume()
     }
     
+    // MARK: Changing the URL to display image with better quality.
+    func getOriginalImageUrl(url: URL) -> URL {
+        let imageUrlString = imageUrlToShow.absoluteString
+        let startIndex = imageUrlString.index(imageUrlString.endIndex, offsetBy: -6)
+        let endIndex = imageUrlString.endIndex
+        
+        let originalImageUrlString = imageUrlString.replacingCharacters(in: startIndex..<endIndex, with: ".jpg")
+        let originalImageUrl = URL(string: originalImageUrlString)!
+        
+        return originalImageUrl
+    }
+    
 }

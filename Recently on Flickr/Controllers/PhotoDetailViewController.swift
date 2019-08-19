@@ -30,7 +30,7 @@ class PhotoDetailViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         
-        photoViewModel.getPhotoData(from: getOriginalImageUrl(url: imageUrlToShow)) { (data, error) in
+        photoViewModel.getPhotoData(from: photoViewModel.getOriginalImageUrl(url: imageUrlToShow)) { (data, error) in
             if let data = data, let image = UIImage(data: data) {
                 DispatchQueue.main.async {
                     self.activityIndicator.stopAnimating()
@@ -41,18 +41,6 @@ class PhotoDetailViewController: UIViewController {
                 self.presentError(title: "Loading Original Image Failed", message: "Please check your connection")
             }
         }
-    }
-    
-    // MARK: Changing the URL to display image with better quality.
-    func getOriginalImageUrl(url: URL) -> URL {
-        let imageUrlString = imageUrlToShow.absoluteString
-        let startIndex = imageUrlString.index(imageUrlString.endIndex, offsetBy: -6)
-        let endIndex = imageUrlString.endIndex
-        
-        let originalImageUrlString = imageUrlString.replacingCharacters(in: startIndex..<endIndex, with: ".jpg")
-        let originalImageUrl = URL(string: originalImageUrlString)!
-        
-        return originalImageUrl
     }
 
 }
