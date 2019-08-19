@@ -11,6 +11,7 @@ import UIKit
 class PhotoDetailViewController: UIViewController {
 
     // MARK: Variables
+    var photoViewModel = PhotoViewModel()
     var imageUrlToShow: URL!
     lazy var activityIndicator = createActivityIndicatorView()
     
@@ -29,7 +30,7 @@ class PhotoDetailViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         
-        FlickrClient.getPhotoData(from: getOriginalImageUrl(url: imageUrlToShow)) { (data, error) in
+        photoViewModel.getPhotoData(from: getOriginalImageUrl(url: imageUrlToShow)) { (data, error) in
             if let data = data, let image = UIImage(data: data) {
                 DispatchQueue.main.async {
                     self.activityIndicator.stopAnimating()

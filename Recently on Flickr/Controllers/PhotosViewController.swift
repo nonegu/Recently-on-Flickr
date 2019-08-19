@@ -10,6 +10,8 @@ import UIKit
 
 class PhotosViewController: UIViewController {
     
+    var photoViewModel = PhotoViewModel()
+    var imageCache = NSCache<AnyObject, UIImage>()
     let itemPerPage = 20
     var isLoading = false
     var currentPage = 1
@@ -26,7 +28,8 @@ class PhotosViewController: UIViewController {
         activityIndicator.startAnimating()
         view.addSubview(activityIndicator)
         UIApplication.shared.beginIgnoringInteractionEvents()
-        FlickrClient.getRecentPhotosURL(itemPerPage: itemPerPage, page: currentPage, completion: handleRecentPhotosResponse(success:error:))
+        
+        setupViewModel()
     }
     
     override func viewDidLayoutSubviews() {
@@ -34,12 +37,28 @@ class PhotosViewController: UIViewController {
         collectionView.collectionViewLayout.invalidateLayout()
     }
     
+    func setupViewModel() {
+        // reload handler will be called when the urls of the photos created.
+        photoViewModel.reloadHandler = {
+            self.collectionView.reloadData()
+        }
+        photoViewModel.fetchPhotos(itemPerPage: itemPerPage, page: currentPage, completion: handleRecentPhotosResponse(success:error:))
+    }
+    
+    func downloadMorePhotos() {
+        isLoading = true
+        currentPage += 1
+        print("downloading new photos")
+        collectionView.reloadSections(IndexSet(integer: 1))
+        
+        setupViewModel()
+    }
+    
     func handleRecentPhotosResponse(success: Bool, error: Error?) {
         if success {
             isLoading = false
             activityIndicator.stopAnimating()
             UIApplication.shared.endIgnoringInteractionEvents()
-            collectionView.reloadData()
         } else {
             activityIndicator.stopAnimating()
             UIApplication.shared.endIgnoringInteractionEvents()
@@ -58,7 +77,7 @@ extension PhotosViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if section == 0 {
-            return Photos.allPhotos.count
+            return photoViewModel.itemCount
         } else if section == 1 && isLoading && !activityIndicator.isAnimating {
             return 1
         }
@@ -69,10 +88,10 @@ extension PhotosViewController: UICollectionViewDataSource {
         if indexPath.section == 0 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! CustomCollectionViewCell
             
-            if let imageFromCache = Photos.imageCache.object(forKey: Photos.allPhotos[indexPath.item].url.absoluteString as NSString) as? UIImage {
+            if let imageFromCache = imageCache.object(forKey: photoViewModel.photos[indexPath.item].url.absoluteString as NSString) {
                 cell.imageView.image = imageFromCache
             } else {
-                cell.imageView.loadImageUsingURL(url: Photos.allPhotos[indexPath.item].url)
+                cell.imageView.loadImageUsingURL(url: photoViewModel.photos[indexPath.item].url, imageCache: imageCache)
             }
             return cell
         } else {
@@ -90,7 +109,7 @@ extension PhotosViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let photoDetailVC = storyboard?.instantiateViewController(withIdentifier: "photoDetailView") as! PhotoDetailViewController
-        photoDetailVC.imageUrlToShow = Photos.allPhotos[indexPath.item].url
+        photoDetailVC.imageUrlToShow = photoViewModel.photos[indexPath.item].url
         navigationController?.pushViewController(photoDetailVC, animated: true)
     }
     
@@ -104,16 +123,6 @@ extension PhotosViewController: UICollectionViewDelegate {
                 downloadMorePhotos()
             }
         }
-    }
-    
-    func downloadMorePhotos() {
-        isLoading = true
-        currentPage += 1
-        print("downloading new photos")
-        collectionView.reloadSections(IndexSet(integer: 1))
-        
-        FlickrClient.getRecentPhotosURL(itemPerPage: self.itemPerPage, page: self.currentPage, completion: self.handleRecentPhotosResponse(success:error:))
-
     }
     
 }
@@ -132,18 +141,4 @@ extension PhotosViewController: UICollectionViewDelegateFlowLayout {
         }
     }
     
-}
-
-extension UIImageView {
-    
-    func loadImageUsingURL(url: URL) {
-        FlickrClient.getPhotoData(from: url) { (data, error) in
-            if let data = data, let image = UIImage(data: data) {
-                Photos.imageCache.setObject(image, forKey: (url.absoluteString as NSString))
-                DispatchQueue.main.async {
-                    self.image = image
-                }
-            }
-        }
-    }
 }
