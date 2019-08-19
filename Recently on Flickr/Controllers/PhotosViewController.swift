@@ -10,11 +10,14 @@ import UIKit
 
 class PhotosViewController: UIViewController {
     
+    // MARK: Properties
     var photoViewModel = PhotoViewModel()
     var imageCache = NSCache<AnyObject, UIImage>()
     let itemPerPage = 20
     var isLoading = false
     var currentPage = 1
+    let imageCellIdentifier = "Cell"
+    let loadingCellIdentifier = "loadingCell"
     lazy var activityIndicator = createActivityIndicatorView()
     
     @IBOutlet weak var collectionView: UICollectionView!
@@ -23,7 +26,7 @@ class PhotosViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         let loadingNib = UINib(nibName: "LoadingCell", bundle: nil)
-        collectionView.register(loadingNib, forCellWithReuseIdentifier: "loadingCell")
+        collectionView.register(loadingNib, forCellWithReuseIdentifier: loadingCellIdentifier)
 
         activityIndicator.startAnimating()
         view.addSubview(activityIndicator)
@@ -86,7 +89,7 @@ extension PhotosViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if indexPath.section == 0 {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! CustomCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: imageCellIdentifier, for: indexPath) as! CustomCollectionViewCell
             
             if let imageFromCache = imageCache.object(forKey: photoViewModel.photos[indexPath.item].url.absoluteString as NSString) {
                 cell.imageView.image = imageFromCache
@@ -95,7 +98,7 @@ extension PhotosViewController: UICollectionViewDataSource {
             }
             return cell
         } else {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "loadingCell", for: indexPath) as! LoadingCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: loadingCellIdentifier, for: indexPath) as! LoadingCell
             cell.spinner.startAnimating()
             return cell
         }
