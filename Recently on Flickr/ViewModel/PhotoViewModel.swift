@@ -79,7 +79,7 @@ class PhotoViewModel {
     
     // MARK: Changing the URL to display image with better quality.
     func getOriginalImageUrl(url: URL) -> URL {
-        let imageUrlString = imageUrlToShow.absoluteString
+        let imageUrlString = url.absoluteString
         let startIndex = imageUrlString.index(imageUrlString.endIndex, offsetBy: -6)
         let endIndex = imageUrlString.endIndex
         
