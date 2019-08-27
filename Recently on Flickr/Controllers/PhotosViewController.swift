@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class PhotosViewController: UIViewController {
     
@@ -91,11 +92,8 @@ extension PhotosViewController: UICollectionViewDataSource {
         if indexPath.section == 0 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: imageCellIdentifier, for: indexPath) as! CustomCollectionViewCell
             
-            if let imageFromCache = imageCache.object(forKey: photoViewModel.photos[indexPath.item].url.absoluteString as NSString) {
-                cell.imageView.image = imageFromCache
-            } else {
-                cell.imageView.loadImageUsingURL(url: photoViewModel.photos[indexPath.item].url, imageCache: imageCache)
-            }
+            cell.imageView.kf.indicatorType = .activity
+            cell.imageView.kf.setImage(with: photoViewModel.photos[indexPath.item].url)
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: loadingCellIdentifier, for: indexPath) as! LoadingCell
